@@ -1,1 +1,2 @@
-print("artem gondon")
+def artem_maladec():
+    return 'nishtyack'
