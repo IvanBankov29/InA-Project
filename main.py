@@ -1,5 +1,7 @@
 from discord import *
-from telegram import *
 
-print(artem_maladec)
-print(vanya_maladec)
+artem = Test_function('Artem', 'durak')
+vanya = Test_function('Vanya', 'красава')
+
+artem.char()
+vanya.char()
