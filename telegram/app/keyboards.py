@@ -12,7 +12,10 @@ main = ReplyKeyboardMarkup(keyboard= [
 
 
 settings = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text= 'YouTube', url= 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')]
+    [InlineKeyboardButton(text= 'YouTube', url= 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')],
+    [InlineKeyboardButton(text= 'Каталог', callback_data= 'catalog')],
+    [InlineKeyboardButton(text= 'Корзина', callback_data= 'basket')],
+    [InlineKeyboardButton(text= 'Какая у тебя машина?', callback_data= 'cars'),]
     ])
 
 
