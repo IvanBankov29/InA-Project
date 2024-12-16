@@ -13,6 +13,7 @@ dp = Dispatcher()
 
 
 async def main():
+    """Tg bot"""
     dp.include_router(router)
     await dp.start_polling(bot)
 

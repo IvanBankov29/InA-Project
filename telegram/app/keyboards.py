@@ -3,6 +3,7 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 
 
+"""основная клавиатура"""
 main = ReplyKeyboardMarkup(keyboard= [
     [KeyboardButton(text = 'Рассписание')],
     [KeyboardButton(text= 'Близжайшее занятие'), KeyboardButton(text= 'Дз')]
@@ -26,12 +27,12 @@ main = ReplyKeyboardMarkup(keyboard= [
 #     for car in cars:
 #         keyboard.add(InlineKeyboardButton(text=car, url= 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
 #     return keyboard.adjust(2).as_markup()
-
+"""клавиатура для изменения рассписания"""
 edit_schedule = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text= 'Изменить расписание', callback_data= 'edit')]
     ])
 
-
+"""клавиатура для отправки номера"""
 get_number = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text= 'Отправить номер', request_contact= True)]
 ], 
