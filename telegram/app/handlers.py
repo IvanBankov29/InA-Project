@@ -7,6 +7,7 @@ from aiogram.fsm.context import FSMContext
 
 import app.keyboards as kb
 from app.middlewares import TestMiddeware
+import app.database.requests as rq
 
 
 router = Router()
@@ -26,8 +27,22 @@ class Register(StatesGroup):
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     """команда старт"""
+    await rq.set_user(message.from_user.id)
     await message.reply(f"Привет! \nтвой ID: {message.from_user.id}\nИмя: {message.from_user.first_name}",
                         reply_markup= kb.main)
+
+
+@router.message(F.text == 'Рассписание')
+async def catalog(message: Message):
+    await message.answer('Выберете день', reply_markup=await kb.categories())
+
+
+@router.callback_query(F.data.startswith('category_'))
+async def category(callback: CallbackQuery):
+    await callback.answer('Вы выбрали категорию')
+    await callback.message.answer('Выбери заняите',
+                                reply_markup=await kb.items(callback.data.split('_')[1]))
+
 
 
 @router.message(Command('help'))
@@ -70,31 +85,10 @@ async def get_help(message: Message):
 #     await callback.message.edit_text('Какая у тебя машина?', reply_markup= await kb.inline_cars())
 
 
-# @router.message(Command('reg'))
-# async def reg_first(message: Message, state: FSMContext):
-#     await state.set_state(Reg.name)
-#     await message.answer('Введите Ваше имя')
-
-
-# @router.message(Reg.name)
-# async def reg_second(message: Message, state: FSMContext):
-#     await state.update_data(name = message.text)
-#     await state.set_state(Reg.number)
-#     await message.answer('Введите номер телефона')
-
-
-# @router.message(Reg.number)
-# async def two_three(message: Message, state: FSMContext):
-#     await state.update_data(number = message.text)
-#     data = await state.get_data()
-#     await message.answer(f'Спасибо, регистрация завершена.\nИмя: {data["name"]}\nНомер: {data["number"]}')
-#     await state.clear()
-
-
-@router.message(F.text == 'Рассписание')
-async def schedule(message: Message):
-    """показывет расписание"""
-    await message.answer('Рассписание пока в разработке', reply_markup= kb.edit_schedule)
+# @router.message(F.text == 'Рассписание')
+# async def schedule(message: Message):
+#     """показывет расписание"""
+#     await message.answer('Рассписание пока в разработке', reply_markup= kb.edit_schedule)
 
 
 @router.callback_query(F.data == 'edit')
